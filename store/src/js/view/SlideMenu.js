@@ -13,6 +13,7 @@ export class SlideMenu {
       { title: 'Contact Us' },
       { title: 'Help' }
     ]
+    this.isActive = false
 
     this.onHamburgerClick = this.onHamburgerClick.bind(this)
   }
@@ -20,6 +21,8 @@ export class SlideMenu {
   onHamburgerClick(e) {
     e.preventDefault()
     e.stopPropagation()
+
+    this.isActive = !this.isActive
 
     if (e.target.classList.contains('is-active')) {
       e.target.classList.remove("is-active")

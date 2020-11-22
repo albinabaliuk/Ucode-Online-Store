@@ -1,3 +1,5 @@
+import { indexOf } from '../utils/array'
+
 import productImage1 from '../../assets/images/Products/main/E8_x_on_5.webp'
 import productImage2 from '../../assets/images/Products/first pair/E8_gold_1.webp'
 import productImage3 from '../../assets/images/Products/3rd/E8_sport_green_1.webp'
@@ -39,7 +41,9 @@ export const model = {
     ]
   },
 
-  cart: [],
+  cart: [
+    // { item: {}, quantity: 1 }
+  ],
 
   currencies: {
     euro: 1,
@@ -48,6 +52,7 @@ export const model = {
   currency: 'euro',
 
   products: [{
+      id: '1',
       image: productImage1,
       title: 'Beoplay E8 Sport Charging Case',
       description: 'Redesigned wireless charging case - limited edition',
@@ -55,6 +60,7 @@ export const model = {
       inStock: 10
     },
     {
+      id: '2',
       image: productImage2,
       title: 'Beoplay E8 3rd Gen',
       description: 'More compact. More powerful.',
@@ -62,6 +68,7 @@ export const model = {
       inStock: 4
     },
     {
+      id: '3',
       image: productImage3,
       title: 'Beoplay E8 Sport',
       description: 'Powerful Bluetooth sports earphones',
@@ -69,6 +76,7 @@ export const model = {
       inStock: 6
     },
     {
+      id: '4',
       image: productImage4,
       title: 'Beoplay H4 2nd Gen',
       description: 'Pure expression. Superior sound',
@@ -76,6 +84,7 @@ export const model = {
       inStock: 3
     },
     {
+      id: '5',
       image: productImage5,
       title: 'Beoplay H8i',
       description: 'Revitalizing a modern classic',
@@ -83,6 +92,7 @@ export const model = {
       inStock: 9
     },
     {
+      id: '6',
       image: productImage6,
       title: 'Beoplay E6',
       description: 'Supreme sound for the streets',
@@ -90,6 +100,7 @@ export const model = {
       inStock: 4
     },
     {
+      id: '7',
       image: productImage7,
       title: 'Beoplay E4',
       description: 'The power of silence',
@@ -97,6 +108,7 @@ export const model = {
       inStock: 10
     },
     {
+      id: '8',
       image: productImage8,
       title: 'Bag for headphones',
       description: 'Fit all B&O headphones',
@@ -104,6 +116,7 @@ export const model = {
       inStock: 15
     },
     {
+      id: '9',
       image: productImage9,
       title: 'Ear cushions for Beoplay H9 3rd Gen',
       description: 'Additional ear-cushions',
@@ -111,6 +124,7 @@ export const model = {
       inStock: 5
     },
     {
+      id: '10',
       image: productImage10,
       title: 'Short Audio Cable for all headphones',
       description: 'For your active lifestyle',
@@ -118,6 +132,7 @@ export const model = {
       inStock: 7
     },
     {
+      id: '11',
       image: productImage11,
       title: 'Cable Clip for Beoplay E6 and Beoplay H5',
       description: 'Secure fit ensured',
@@ -125,6 +140,7 @@ export const model = {
       inStock: 3
     },
     {
+      id: '12',
       image: productImage12,
       title: 'Beoremote One',
       description: 'Do more with less',
@@ -132,6 +148,7 @@ export const model = {
       inStock: 4
     },
     {
+      id: '13',
       image: productImage13,
       title: 'Kvadrat cover for Beoplay A9',
       description: 'One product, many styles',
@@ -139,6 +156,7 @@ export const model = {
       inStock: 7
     },
     {
+      id: '14',
       image: productImage14,
       title: 'Beoplay A2 and A2 Active Long Strap',
       description: 'Wear it differently',
@@ -146,6 +164,7 @@ export const model = {
       inStock: 8
     },
     {
+      id: '15',
       image: productImage15,
       title: 'Beoplay S3 Cover',
       description: 'Make it yours',
@@ -153,6 +172,7 @@ export const model = {
       inStock: 2
     },
     {
+      id: '16',
       image: productImage16,
       title: 'Beoplay A9 Cover',
       description: 'One product, many styles',
@@ -160,6 +180,7 @@ export const model = {
       inStock: 20
     },
     {
+      id: '17',
       image: productImage17,
       title: 'Beoremote Halo',
       description: 'Remote Control for Easy Access to Music',
@@ -167,6 +188,7 @@ export const model = {
       inStock: 9
     },
     {
+      id: '18',
       image: productImage18,
       title: 'Beosound Stage Floor Stand',
       description: 'A new stand for our new soundbar',
@@ -174,6 +196,7 @@ export const model = {
       inStock: 10
     },
     {
+      id: '19',
       image: productImage19,
       title: 'Beoplay E8 Sport Single Earbud',
       description: 'Bluetooth earphones',
@@ -194,4 +217,31 @@ export const updateAvailability = (index, value) => {
 
 export const updateFilterPrice = value => {
   model.filters.price.value = value
+}
+
+export const addToCart = item => {
+  const index = indexOf(model.cart, cartItem => cartItem.item.id === item.id)
+
+  if(isNaN(index)) return
+  if(index < 0) {
+    model.cart.push({ item, quantity: 1 })
+    return
+  }
+
+  if(item.inStock === model.cart[index].quantity) return
+
+  model.cart[index].quantity += 1
+}
+
+export const removeOneItemFromCart = index => {
+  if(model.cart[index].quantity === 1) {
+    model.cart.splice(index, 1)
+    return
+  }
+
+  model.cart[index].quantity -= 1
+}
+
+export const removeAllItemFromCart = index => {
+  model.cart.splice(index, 1)
 }

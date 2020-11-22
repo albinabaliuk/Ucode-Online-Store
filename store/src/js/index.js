@@ -4,7 +4,7 @@ import { model } from './model'
 import { controller } from './controller'
 
 const app = new App(model, controller)
-app.render()
+
 
 
 

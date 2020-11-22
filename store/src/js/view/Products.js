@@ -11,6 +11,7 @@ export class Products {
     this.itemsPerPage = 6
 
     this.onPageClick = this.onPageClick.bind(this)
+    this.onBagClick = this.onBagClick.bind(this)
   }
 
   paginateProducts() {
@@ -46,11 +47,18 @@ export class Products {
     parent.append(container)
   }
 
+  onBagClick(item) {
+    return (e) => {
+      this.controller.products.onAddToCart(item)
+      this.reRender()
+    }
+  }
+
   renderProducts(parent) {
     const productsContainer = createElement('div', 'products-center')
 
     const products = this.getCurrentPage()
-    products.forEach((product, index) => {
+    products.forEach((product) => {
       const container = createElement('article', 'product')
       const imgContainer = createElement('div', 'img-container')
       const productImage = createElement('img', 'product-img')
@@ -59,6 +67,8 @@ export class Products {
 
       productImage.src = product.image
       productImage.alt = 'product'
+
+      bagBtn.onclick = this.onBagClick(product)
 
       bagBtn.append(cartIcon)
       imgContainer.append(productImage)

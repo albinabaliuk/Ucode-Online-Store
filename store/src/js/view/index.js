@@ -18,6 +18,19 @@ export class App {
     this.slider = new Slider(this.model, this.controller, this.render)
     this.filterButton = new FilterButton(this.model, this.controller, this.render)
     this.products = new Products(this.model, this.controller, this.render)
+
+
+    window.onbeforeunload = () => {
+      const cart = JSON.stringify(this.model.cart)
+      localStorage.setItem('cart', cart)
+    }
+
+    window.onload = () => {
+      const cartRaw = localStorage.getItem('cart')
+      this.model.cart = JSON.parse(cartRaw)
+
+      this.render()
+    }
   }
 
   render() {

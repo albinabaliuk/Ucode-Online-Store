@@ -1,4 +1,4 @@
-@import './slider.scss';
+@import './slider.scss', './cart.scss';
 
 * {
   margin: 0;
@@ -151,9 +151,21 @@ nav {
   width: 90vw;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 33%);
   grid-column-gap: 1.5rem;
   grid-row-gap: 2rem;
+}
+
+@media (max-width:780px) {
+  .products-center {
+    grid-template-columns: 100% 100%;
+  }
+}
+
+@media (max-width:480px) {
+  .products-center {
+    grid-template-columns: 100%;
+  }
 }
 
 .product {
@@ -634,7 +646,7 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   Position: fixed;
-  Z-index: 2;
+  Z-index: 9999999999;
   top: 0;
   display: flex;
   justify-content: center;
@@ -643,7 +655,7 @@ body {
 
 .cart-content {
   width: 700px;
-  height: 300px;
+  height: 450px;
   background-color: #fff;
   border-radius: 4px;
   position: relative;

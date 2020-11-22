@@ -11,7 +11,7 @@ export class Slider {
   constructor(model, controller, reRender) {
     this.model = model
     this.controller = controller
-    this.reRender = reRender
+    this.reRenderWholeApp = reRender
 
     this.slides = [
       { img: sliderImage1 },
@@ -27,14 +27,31 @@ export class Slider {
     this.interval = null
     this.activeSlideIndex = 0
 
+    this.container = null
+
 
     this.onPrevClick = this.onPrevClick.bind(this)
     this.onNextClick = this.onNextClick.bind(this)
     this.startInterval = this.startInterval.bind(this)
     this.onDotClick = this.onDotClick.bind(this)
+    this.reRender = this.reRender.bind(this)
 
 
     this.startInterval()
+  }
+
+  reRender() {
+    if(!this.container) return
+
+    const nextContainer = this.renderSlider()
+    this.container.replaceWith(nextContainer)
+    this.saveContainer(nextContainer)
+  }
+
+  saveContainer(container) {
+    if(!container) return
+
+    this.container = container
   }
 
   onPrevClick() {
@@ -74,8 +91,8 @@ export class Slider {
       this.startInterval()
     }
   }
-   
-  render() {
+
+  renderSlider() {
     const container = createElement('div')
     const sliderContainer = createElement('div', 'slider__container')
     const prevBtn = createElement('button', 'prev')
@@ -115,6 +132,13 @@ export class Slider {
 
     container.append(sliderContainer)
     container.append(dotsContainer)
+
+    return container
+  }
+   
+  render() {
+    const container = this.renderSlider()
+    this.saveContainer(container)
 
     return container
   }

@@ -103,6 +103,42 @@ nav {
   padding: 4rem 0;
 }
 
+.product-pages {
+  z-index: 9999;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.product-page {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 46px;
+  font-size: 20px;
+  border: 1px solid gray;
+  color: gray;
+  border-radius: 50%;
+  margin: 0 5px;
+
+  opacity: .8;
+  transition: all .3s ease;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+}
+
+.product-page-active {
+  background: grey;
+  color: #fff;
+}
+
 .section-model h2 {
   text-align: center;
   font-size: 2.5rem;

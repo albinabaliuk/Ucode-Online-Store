@@ -6,12 +6,15 @@ export class Products {
     this.model = model
     this.controller = controller
     this.reRender = reRender
+
+    this.activePageIndex = 0
+    this.itemsPerPage = 6
+
+    this.onPageClick = this.onPageClick.bind(this)
   }
 
   paginateProducts() {
-    this.itemsPerPage = 6
     this.pagesCount = Math.ceil(this.model?.products?.length / this.itemsPerPage) || 1
-    this.activePageIndex = 0
   }
 
   getCurrentPage() {
@@ -83,12 +86,40 @@ export class Products {
     parent.append(productsContainer)
   }
 
+  onPageClick(index) {
+    return () => {
+      this.activePageIndex = index
+      this.reRender()
+    }
+  }
+
+  renderProductPages(parent) {
+    const container = createElement('div', 'product-pages')
+    const activePage = this.activePageIndex + 1
+  
+    for(let i = 1; i <= this.pagesCount; i++) {
+      const productPage = createElement('div', 'product-page')
+      productPage.textContent = i
+
+      if(activePage === i) {
+        productPage.classList.add('product-page-active')
+      }
+
+      productPage.onclick = this.onPageClick(i - 1)
+
+      container.append(productPage)
+    }
+
+    parent.append(container)
+  }
+
   render() {
     this.paginateProducts()
     const container = createElement('section', 'products')
 
     this.renderTitle(container)
     this.renderProducts(container)
+    this.renderProductPages(container)
 
     return container
   }

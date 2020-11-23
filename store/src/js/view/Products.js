@@ -68,7 +68,15 @@ export class Products {
       productImage.src = product.image
       productImage.alt = 'product'
 
-      bagBtn.onclick = this.onBagClick(product)
+      if(product.inStock > 0) {
+        bagBtn.onclick = this.onBagClick(product)
+      }
+
+      if(product.inStock <= 0) {
+        const notAvailableBlock = createElement('div', 'product-not-available')
+        notAvailableBlock.textContent = 'Not available.'
+        container.append(notAvailableBlock)
+      }
 
       bagBtn.append(cartIcon)
       imgContainer.append(productImage)

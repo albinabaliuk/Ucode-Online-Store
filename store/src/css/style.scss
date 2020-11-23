@@ -104,6 +104,22 @@ nav {
   padding: 4rem 0;
 }
 
+.product-not-available {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: gray;
+  opacity: .2;
+  z-index: 9999999999;
+  cursor: default;
+
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+}
+
 .product-pages {
   z-index: 9999;
   display: flex;

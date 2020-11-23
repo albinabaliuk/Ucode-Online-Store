@@ -220,17 +220,22 @@ export const updateFilterPrice = value => {
 }
 
 export const addToCart = item => {
-  const index = indexOf(model.cart, cartItem => cartItem.item.id === item.id)
+  const cartIndex = indexOf(model.cart, cartItem => cartItem.item.id === item.id)
+  const productIndex = indexOf(model.products, product => product.id === item.id)
 
-  if(isNaN(index)) return
-  if(index < 0) {
+  if(isNaN(cartIndex) || isNaN(productIndex)) return
+  if(productIndex < 0) return
+
+  if(cartIndex < 0) {
     model.cart.push({ item, quantity: 1 })
+    model.products[productIndex].inStock -= 1
     return
   }
 
-  if(item.inStock === model.cart[index].quantity) return
+  if(item.inStock === 0) return
 
-  model.cart[index].quantity += 1
+  model.cart[cartIndex].quantity += 1
+  model.products[productIndex].inStock -= 1
 }
 
 export const removeOneItemFromCart = index => {

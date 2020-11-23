@@ -4,6 +4,7 @@ import { Slider } from './Slider'
 import { FilterButton } from './FilterButton'
 import { Products } from './Products'
 import { Footer } from './Footer'
+import { indexOf } from '../utils/array'
 
 export class App {
   constructor(model, controller) {
@@ -30,6 +31,17 @@ export class App {
     window.onload = () => {
       const cartRaw = localStorage.getItem('cart')
       this.model.cart = JSON.parse(cartRaw)
+
+      if(this.model.cart.length) {
+        this.model.products.forEach((product, index) => {
+          const cartIndex = indexOf(this.model.cart, cartItem => cartItem.item.id === product.id)
+
+          if(isNaN(cartIndex) || cartIndex < 0) return
+
+          const cartItem = this.model.cart[cartIndex]
+          this.model.products[index].inStock -= cartItem.quantity
+        })
+      }
 
       this.render()
     }

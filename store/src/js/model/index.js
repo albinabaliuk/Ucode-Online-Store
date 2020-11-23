@@ -57,7 +57,8 @@ export const model = {
       title: 'Beoplay E8 Sport Charging Case',
       description: 'Redesigned wireless charging case - limited edition',
       price: 200,
-      inStock: 10
+      inStock: 10,
+      types: [ 'Accessories' ]
     },
     {
       id: '2',
@@ -65,7 +66,8 @@ export const model = {
       title: 'Beoplay E8 3rd Gen',
       description: 'More compact. More powerful.',
       price: 350,
-      inStock: 4
+      inStock: 4,
+      types: [ 'Headphones' ]
     },
     {
       id: '3',
@@ -73,7 +75,8 @@ export const model = {
       title: 'Beoplay E8 Sport',
       description: 'Powerful Bluetooth sports earphones',
       price: 350,
-      inStock: 6
+      inStock: 6,
+      types: [ 'Headphones' ]
     },
     {
       id: '4',
@@ -81,7 +84,8 @@ export const model = {
       title: 'Beoplay H4 2nd Gen',
       description: 'Pure expression. Superior sound',
       price: 300,
-      inStock: 3
+      inStock: 3,
+      types: [ 'Headphones' ]
     },
     {
       id: '5',
@@ -89,7 +93,8 @@ export const model = {
       title: 'Beoplay H8i',
       description: 'Revitalizing a modern classic',
       price: 400,
-      inStock: 9
+      inStock: 9,
+      types: [ 'Headphones' ]
     },
     {
       id: '6',
@@ -97,7 +102,8 @@ export const model = {
       title: 'Beoplay E6',
       description: 'Supreme sound for the streets',
       price: 200,
-      inStock: 4
+      inStock: 4,
+      types: [ 'Headphones' ]
     },
     {
       id: '7',
@@ -105,7 +111,8 @@ export const model = {
       title: 'Beoplay E4',
       description: 'The power of silence',
       price: 200,
-      inStock: 10
+      inStock: 10,
+      types: [ 'Headphones' ]
     },
     {
       id: '8',
@@ -113,7 +120,8 @@ export const model = {
       title: 'Bag for headphones',
       description: 'Fit all B&O headphones',
       price: 150,
-      inStock: 15
+      inStock: 15,
+      types: [ 'Accessories' ]
     },
     {
       id: '9',
@@ -121,7 +129,8 @@ export const model = {
       title: 'Ear cushions for Beoplay H9 3rd Gen',
       description: 'Additional ear-cushions',
       price: 70,
-      inStock: 5
+      inStock: 5,
+      types: [ 'Accessories' ]
     },
     {
       id: '10',
@@ -129,7 +138,8 @@ export const model = {
       title: 'Short Audio Cable for all headphones',
       description: 'For your active lifestyle',
       price: 25,
-      inStock: 7
+      inStock: 7,
+      types: [ 'Accessories' ]
     },
     {
       id: '11',
@@ -137,7 +147,8 @@ export const model = {
       title: 'Cable Clip for Beoplay E6 and Beoplay H5',
       description: 'Secure fit ensured',
       price: 15,
-      inStock: 3
+      inStock: 3,
+      types: [ 'Accessories' ]
     },
     {
       id: '12',
@@ -145,7 +156,8 @@ export const model = {
       title: 'Beoremote One',
       description: 'Do more with less',
       price: 300,
-      inStock: 4
+      inStock: 4,
+      types: [ 'Televisions' ]
     },
     {
       id: '13',
@@ -153,7 +165,8 @@ export const model = {
       title: 'Kvadrat cover for Beoplay A9',
       description: 'One product, many styles',
       price: 130,
-      inStock: 7
+      inStock: 7,
+      types: [ 'Speakers' ]
     },
     {
       id: '14',
@@ -161,7 +174,8 @@ export const model = {
       title: 'Beoplay A2 and A2 Active Long Strap',
       description: 'Wear it differently',
       price: 50,
-      inStock: 8
+      inStock: 8,
+      types: [ 'Accessories' ]
     },
     {
       id: '15',
@@ -169,7 +183,8 @@ export const model = {
       title: 'Beoplay S3 Cover',
       description: 'Make it yours',
       price: 50,
-      inStock: 2
+      inStock: 2,
+      types: [ 'Gifts' ]
     },
     {
       id: '16',
@@ -177,7 +192,8 @@ export const model = {
       title: 'Beoplay A9 Cover',
       description: 'One product, many styles',
       price: 50,
-      inStock: 20
+      inStock: 20,
+      types: [ 'Gifts' ]
     },
     {
       id: '17',
@@ -185,7 +201,8 @@ export const model = {
       title: 'Beoremote Halo',
       description: 'Remote Control for Easy Access to Music',
       price: 750,
-      inStock: 9
+      inStock: 9,
+      types: [ 'Gifts', 'Televisions' ]
     },
     {
       id: '18',
@@ -193,7 +210,8 @@ export const model = {
       title: 'Beosound Stage Floor Stand',
       description: 'A new stand for our new soundbar',
       price: 700,
-      inStock: 10
+      inStock: 10,
+      types: [ 'Televisions' ]
     },
     {
       id: '19',
@@ -201,9 +219,11 @@ export const model = {
       title: 'Beoplay E8 Sport Single Earbud',
       description: 'Bluetooth earphones',
       price: 125,
-      inStock: 4
+      inStock: 4,
+      types: [ 'Headphones' ]
     }
-  ]
+  ],
+  filteredProducts: []
 }
 
 export const updateFilterType = (index, value) => {
@@ -265,4 +285,43 @@ export const removeAllItemFromCart = index => {
   model.products[productIndex].inStock += cartItem.quantity
 
   model.cart.splice(index, 1)
+}
+
+export const clearFiltered = () => {
+  model.filteredProducts = []
+}
+
+const doesProductMatchAnyType = product => {
+  for(let i = 0; i < model.filters.types.length; i++) {
+    const type = model.filters.types[i]
+
+    if(product.types.includes(type.title) && type.value === true) {
+      return true
+    }
+  }
+
+  return false
+}
+
+const isAnyTypeFilterSelected = () => {
+  return model.filters.types.some(item => item.value)
+}
+
+const isPriceFilterSelected = () => {
+  return parseInt(model.filters.price.value) > 0
+}
+
+export const applyFilters = () => {
+  //stage 1 type filtering
+  console.log(isAnyTypeFilterSelected())
+  const filteredItemsByType = isAnyTypeFilterSelected()
+    ? model.products.filter(product => doesProductMatchAnyType(product))
+    : model.products
+
+  //stage 2 price filtering
+  const filteredItemsByPrice = isPriceFilterSelected()
+    ? filteredItemsByType.filter(product => product.price <= parseInt(model.filters.price.value)) 
+    : filteredItemsByType
+
+  model.filteredProducts = filteredItemsByPrice
 }

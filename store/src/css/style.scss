@@ -282,6 +282,11 @@ div {
   left: 80px;
 }
 
+.filter-row {
+  display: flex;
+  flex-direction: row;
+}
+
 #rangeValue {
   position: absolute;
   padding: 2px;
@@ -316,9 +321,6 @@ div {
 }
 
 .filterButton {
-  position: absolute;
-  top: 775px;
-  left: 0px;
   border: none;
   background-color: rgb(190, 161, 106);
   padding: 15px;

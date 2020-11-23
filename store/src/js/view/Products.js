@@ -1,3 +1,4 @@
+import { model } from '../model'
 import { createElement, createElementWithId } from './helpers'
 
 
@@ -15,11 +16,15 @@ export class Products {
   }
 
   paginateProducts() {
-    this.pagesCount = Math.ceil(this.model?.products?.length / this.itemsPerPage) || 1
+    this.pagesCount = Math.ceil(this.products?.length / this.itemsPerPage) || 1
   }
 
   getCurrentPage() {
-    return this.model.products.slice(this.activePageIndex * this.itemsPerPage, (this.activePageIndex + 1) * this.itemsPerPage)
+    return this.products.slice(this.activePageIndex * this.itemsPerPage, (this.activePageIndex + 1) * this.itemsPerPage)
+  }
+
+  setProducts() {
+    this.products = this.model.filteredProducts.length ? this.model.filteredProducts : this.model.products
   }
 
   getCurrencySign() {
@@ -132,6 +137,7 @@ export class Products {
   }
 
   render() {
+    this.setProducts()
     this.paginateProducts()
     const container = createElement('section', 'products')
 

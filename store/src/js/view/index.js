@@ -3,6 +3,7 @@ import { SlideMenu } from './SlideMenu'
 import { Slider } from './Slider'
 import { FilterButton } from './FilterButton'
 import { Products } from './Products'
+import { Footer } from './Footer'
 
 export class App {
   constructor(model, controller) {
@@ -18,6 +19,7 @@ export class App {
     this.slider = new Slider(this.model, this.controller, this.render)
     this.filterButton = new FilterButton(this.model, this.controller, this.render)
     this.products = new Products(this.model, this.controller, this.render)
+    this.footer = new Footer(this.model, this.controller, this.render)
 
 
     window.onbeforeunload = () => {
@@ -41,6 +43,7 @@ export class App {
     components.push(this.slider.render())
     components.push(this.filterButton.render())
     components.push(this.products.render())
+    components.push(this.footer.render())
 
     this.root.innerHTML = ''
     this.root.append(...components)

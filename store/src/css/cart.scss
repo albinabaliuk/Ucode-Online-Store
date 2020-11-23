@@ -38,8 +38,9 @@
 }
 
 .cart-items-container {
-  height: 100%;
+  height: -webkit-fill-available;
   overflow-y: auto;
+  margin-bottom: 80px;
 }
 
 .cart-item-remove-wrapper {
@@ -62,4 +63,35 @@
   &:hover {
     font-weight: 900;
   }
+}
+
+
+.cart-total-price {
+  position: absolute;
+  bottom: 25px;
+  right: 35%;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.cart-purchase-btn {
+  background-color: rgb(190, 161, 106);
+  width: 120px;
+  height: 45px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  position: absolute;
+  bottom: 18px;
+  right: 3%;
+  font-size: 19px;
+
+
+  cursor: pointer;
+  transition: all .3s ease;
+
+  &:hover {
+    background-color: #26272b;
+  }
+
 }

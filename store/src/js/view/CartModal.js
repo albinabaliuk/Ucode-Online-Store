@@ -84,11 +84,14 @@ export class CartModal {
         quantity.textContent = 'Quantity: ' + cartItem.quantity
         price.textContent = 'Price: ' + this.getCurrencySign() + cartItem.item.price
         total.textContent = 'Total price: ' + this.getCurrencySign() + (parseInt(cartItem.item.price) * cartItem.quantity)
+      
 
         wrapper.append(title)
         wrapper.append(quantity)
         wrapper.append(price)
         wrapper.append(total)
+        
+
         removeWrapper.append(removeOne)
         removeWrapper.append(removeAll)
         wrapper.append(removeWrapper)
@@ -112,9 +115,22 @@ export class CartModal {
   render() {
     this.container = createElement('div', 'cart-modal')
     const contentDiv = createElement('div', 'cart-content')
+    const totalPrice = createElement('div', 'cart-total-price')
+    const purchaseBtn = createElement('button', 'cart-purchase-btn')
+
+
+    totalPrice.textContent = 'Total all: '
+    purchaseBtn.textContent = 'Purchase'
+
+    contentDiv.append(totalPrice)
+    contentDiv.append(purchaseBtn)
+
 
     this.renderCloseBtn(contentDiv)
     this.renderCartItems(contentDiv)
+
+    
+
 
     this.container.append(contentDiv)
 

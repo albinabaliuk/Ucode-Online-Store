@@ -11,6 +11,20 @@ export class CartModal {
     this.onRemoveAllClick = this.onRemoveAllClick.bind(this)
   }
 
+  reRender() {
+    if(!this.container) return
+
+    const nextContainer = this.renderModal()
+    this.container.replaceWith(nextContainer)
+    this.saveContainer(nextContainer)
+  }
+
+  saveContainer(container) {
+    if(!container) return
+
+    this.container = container
+  }
+
   onCloseClick() {
     if(this.container) {
       document.body.removeChild(this.container)
@@ -67,12 +81,14 @@ export class CartModal {
   onRemoveOneClick(index) {
     return () => {
       this.controller.cart.onRemoveOne(index)
+      this.reRender()
     }
   }
 
   onRemoveAllClick(index) {
     return () => {
       this.controller.cart.onRemoveAll(index)
+      this.reRender()
     }
   }
 
@@ -133,20 +149,22 @@ export class CartModal {
     parent.append(container)
   }
 
-  render() {
-    this.container = createElement('div', 'cart-modal')
+  renderModal() {
+    const container = createElement('div', 'cart-modal')
     const contentDiv = createElement('div', 'cart-content')
     
-
-
     this.renderCloseBtn(contentDiv)
     this.renderCartItems(contentDiv)
 
 
-    this.container.append(contentDiv)
+    container.append(contentDiv)
 
-    document.body.append(this.container)
+    return container
+  }
 
-    return this.container
+  render() {
+    const container = this.renderModal()
+    this.saveContainer(container)
+    document.body.append(container)
   }
 }

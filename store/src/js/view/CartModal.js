@@ -35,6 +35,26 @@ export class CartModal {
     }
   }
 
+  renderTotalPrice(parent) {
+    const totalPrice = createElement('div', 'cart-total-price')
+    const purchaseBtn = createElement('button', 'cart-purchase-btn')
+
+
+    const total = this.model.cart.reduce((acc, cartItem) => {
+      acc += (parseInt(cartItem.item.price) * cartItem.quantity)
+
+      return acc
+    }, 0)
+
+
+    totalPrice.textContent = 'Total all: ' + this.getCurrencySign() + total 
+    purchaseBtn.textContent = 'Purchase'
+
+    parent.append(totalPrice)
+    parent.append(purchaseBtn)
+  }
+
+
   renderCloseBtn(parent) {
     const closeBtn = createElementWithId('div', 'closeCart', 'close')
 
@@ -102,6 +122,7 @@ export class CartModal {
       })
 
       //TODO render total cart price and purchase button
+      this.renderTotalPrice(parent)
     } else {
       const emptyTitle = createElement('div', 'cart-empty-title')
       emptyTitle.textContent = 'Cart is empty.'
@@ -115,21 +136,11 @@ export class CartModal {
   render() {
     this.container = createElement('div', 'cart-modal')
     const contentDiv = createElement('div', 'cart-content')
-    const totalPrice = createElement('div', 'cart-total-price')
-    const purchaseBtn = createElement('button', 'cart-purchase-btn')
-
-
-    totalPrice.textContent = 'Total all: '
-    purchaseBtn.textContent = 'Purchase'
-
-    contentDiv.append(totalPrice)
-    contentDiv.append(purchaseBtn)
+    
 
 
     this.renderCloseBtn(contentDiv)
     this.renderCartItems(contentDiv)
-
-    
 
 
     this.container.append(contentDiv)

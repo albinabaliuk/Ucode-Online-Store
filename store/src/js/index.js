@@ -409,6 +409,8 @@ class Footer {
         </div>
         <hr>
       </div>
+
+      
       <div class="container">
         <div class="row">
             <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by

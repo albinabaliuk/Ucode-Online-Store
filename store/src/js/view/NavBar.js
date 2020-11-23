@@ -26,7 +26,7 @@ export class NavBar {
   }
 
   onModalClose() {
-    
+    this.reRender()
   }
 
 

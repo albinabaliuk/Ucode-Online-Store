@@ -239,6 +239,14 @@ export const addToCart = item => {
 }
 
 export const removeOneItemFromCart = index => {
+  const cartItem = model.cart[index]
+  const productIndex = indexOf(model.products, product => product.id === cartItem.item.id)
+
+  if(isNaN(productIndex)) return
+  if(productIndex < 0) return
+
+  model.products[productIndex].inStock += 1
+
   if(model.cart[index].quantity === 1) {
     model.cart.splice(index, 1)
     return
@@ -248,5 +256,13 @@ export const removeOneItemFromCart = index => {
 }
 
 export const removeAllItemFromCart = index => {
+  const cartItem = model.cart[index]
+  const productIndex = indexOf(model.products, product => product.id === cartItem.item.id)
+
+  if(isNaN(productIndex)) return
+  if(productIndex < 0) return
+  
+  model.products[productIndex].inStock += cartItem.quantity
+
   model.cart.splice(index, 1)
 }

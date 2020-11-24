@@ -30,18 +30,24 @@ export class App {
 
     window.onload = () => {
       const cartRaw = localStorage.getItem('cart')
-      this.model.cart = JSON.parse(cartRaw)
+      const cart = JSON.parse(cartRaw)
 
-      if(this.model.cart.length) {
-        this.model.products.forEach((product, index) => {
-          const cartIndex = indexOf(this.model.cart, cartItem => cartItem.item.id === product.id)
+      if(Array.isArray(cart)) {
+        this.model.cart = cart
 
-          if(isNaN(cartIndex) || cartIndex < 0) return
+        if(this.model.cart.length) {
+          this.model.products.forEach((product, index) => {
+            const cartIndex = indexOf(this.model.cart, cartItem => cartItem.item.id === product.id)
 
-          const cartItem = this.model.cart[cartIndex]
-          this.model.products[index].inStock -= cartItem.quantity
-        })
+            if(isNaN(cartIndex) || cartIndex < 0) return
+
+            const cartItem = this.model.cart[cartIndex]
+            this.model.products[index].inStock -= cartItem.quantity
+          })
+        }
       }
+
+      
 
       this.render()
     }

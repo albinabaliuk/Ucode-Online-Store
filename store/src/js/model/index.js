@@ -324,4 +324,6 @@ export const applyFilters = () => {
     : filteredItemsByType
 
   model.filteredProducts = filteredItemsByPrice
+
+  //stage 3 a
 }

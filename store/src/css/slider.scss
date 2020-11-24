@@ -108,7 +108,7 @@
   cursor: pointer;
   height: 7px;
   width: 2px;
-  margin: 0 0.8px;
+  margin: 0 1.5px;
   background-color: rgb(187, 187, 187);
   display: inline-block;
   transition: background-color 0.6s ease;
@@ -119,3 +119,22 @@
   background-color: #141414;
   height: 10px;
 }
+
+
+@media (max-width:432px) {
+  .slider__content img {
+    height: 350px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+
+  }
+
+  @media screen and (min-width: 1900px) {
+    .slider__container {
+      width: 70%;
+    }
+
+  }

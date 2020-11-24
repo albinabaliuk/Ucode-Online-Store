@@ -34,6 +34,8 @@ export class NavBar {
     const container = createElement('div', 'nav__container')
     const nav = createElement('nav')
     const title = createElement('h1', 'mainTitle')
+    const phoneWrapper = createElement('a')
+    const phoneIcon = createElement('i', 'fas', 'fa-phone')
     const btnContainer = createElementWithId('div', 'cart-btn', 'cart-btn')
     const iSpan = createElement('span', 'nav-icon')
     const icon = createElement('i', 'fas', 'fa-shopping-cart')
@@ -41,6 +43,7 @@ export class NavBar {
 
     title.textContent = this.title
     badge.textContent = this.model?.cart?.length || 0
+    phoneWrapper.href = "tel:1800123456"
 
     btnContainer.onclick = this.onCartClick
 
@@ -49,6 +52,8 @@ export class NavBar {
     btnContainer.append(badge)
     nav.append(title)
     nav.append(btnContainer)
+    phoneWrapper.append(phoneIcon)
+    nav.append(phoneWrapper)
     container.append(nav)
 
     return container

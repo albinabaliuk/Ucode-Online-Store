@@ -232,7 +232,6 @@ export const updateFilterType = (index, value) => {
 
 export const updateAvailability = (index, value) => {
   model.filters.availability[index].value = value
-  console.log(model.filters)
 }
 
 export const updateFilterPrice = value => {
@@ -312,18 +311,15 @@ const isPriceFilterSelected = () => {
 }
 
 export const applyFilters = () => {
-  //stage 1 type filtering
-  console.log(isAnyTypeFilterSelected())
+ 
   const filteredItemsByType = isAnyTypeFilterSelected()
     ? model.products.filter(product => doesProductMatchAnyType(product))
     : model.products
 
-  //stage 2 price filtering
   const filteredItemsByPrice = isPriceFilterSelected()
     ? filteredItemsByType.filter(product => product.price <= parseInt(model.filters.price.value)) 
     : filteredItemsByType
 
   model.filteredProducts = filteredItemsByPrice
 
-  //stage 3 a
 }
